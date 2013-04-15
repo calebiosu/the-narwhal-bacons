@@ -19,14 +19,17 @@ posts = gather_loseit.gathertolist(100)
 
 # python doesn't seem to like \w* or \w+
 
-regex = re.compile(r"\w{0,10}.{0,3}\d{2,3}.{0,3}\w{0,10}")
+regex = re.compile(r"(\b\w+\b){3}")#{0,3}.{0,3}\d{2,3}.{0,3}\b\S+\b{0,3}")
+
 
 for post in posts:
-    m = regex.match(post.post_text)
-    print matches
-    if (len(matches) > 0):
+    match = re.findall(r"(([\b\w ,.]\w+[\b\w ,.]){0,5}\d{3}[a-zA-Z.]{0,3}([\b\w ,.]\w+[\w\b ,.]){0,5})", post.post_text)
+    if match:
+        print match, '\n' + 'TEXT::::::::::::::::'
+        print post.post_text
+    '''if (len(matches) > 0):
         post.weight_matches = list(matches)
         results.write(str(post.printpost))
-
+'''
 
 
