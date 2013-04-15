@@ -25,4 +25,7 @@ for post in posts:
     print matches
     if (len(matches) > 0):
         post.weight_matches = list(matches)
-        results.write(str(post.printpost))
+        results.write(str(post.printpost)+'\n')
+
+# close file
+results.close()
