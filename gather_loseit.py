@@ -26,11 +26,11 @@ loseit_subreddit = r.get_subreddit('loseit')
 def gathertolist(lim):
     post_list = []
     for submission in loseit_subreddit.get_new(limit = lim):
-        newpost = post.post(str(submission.author).encode('utf-8'),
-            submission.short_link.encode('utf-8'),
-            submission.selftext.lower().encode('utf-8'))
-
+        newpost = post.post(str(submission.author),
+            submission.short_link,
+            submission.selftext.lower())
         post_list.append(newpost)
+
 
     return post_list
 
@@ -51,11 +51,11 @@ def gathertofile(lim, filename):
     f.close()  
     
 if __name__ == "__main__":    
-	    
+    
     if not len(sys.argv) == 3:
         print 'Usage: <exec> <post_limit> <file_name>'
 
-	gathertofile(int(sys.argv[1]), sys.argv[2])
+    gathertofile(int(sys.argv[1]), sys.argv[2])
 
 
 
