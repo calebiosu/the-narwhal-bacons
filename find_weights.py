@@ -13,11 +13,10 @@ posts = gather_loseit.gathertolist(100)
 # 3 characters of any kind on either side plus
 # 10 more word (\w) characters in both directions.
 
-# the problem right now is in using * or + with \w
-# in order to search for an arbitrary number of \w
-# characters (a word of arbitrary size) N times
 
-# python doesn't seem to like \w* or \w+
+# progress:
+# r"(([\b\w ,.]\w+[\b\w ,.]){0,5}\d{3}[a-zA-Z.]{0,3}([\b\w ,.]\w+[\w\b ,.]){0,5})"
+# uses groups, returns tuples
 
 regex = re.compile(r"\w{0,10}.{0,3}\d{2,3}.{0,3}\w{0,10}")
 
