@@ -3,33 +3,29 @@ import re
 import post
 import gather_loseit
 
-# \d{2,3}.*?\b[\w+?\b]{2}
+# input check
+if not len(sys.argv) == 2:
+    print 'Usage: <exec> <int>'
 
 results = open('loseit_posts_weights', 'w')
 posts = gather_loseit.gathertolist(100)
 
-# still working on regex
-# at the moment it grabs 2-3 numbers with 
-# 3 characters of any kind on either side plus
-# 10 more word (\w) characters in both directions.
+exp = r"(([\b\w .']\w*[\b\w .']){0," + str(sys.argv[1]) + r"}\d{3}[a-zA-Z.]{0,3}([\b\w .']\w*[\b\w .']){0," + str(sys.argv[1]) + "})"
 
-# the problem right now is in using * or + with \w
-# in order to search for an arbitrary number of \w
-# characters (a word of arbitrary size) N times
-
-# python doesn't seem to like \w* or \w+
-
-regex = re.compile(r"(([\b\w .]\w*[\b\w .]){0,4}\d{3}[a-zA-Z.]{0,3}([\b\w .]\w*[\b\w .]){0,4})")
+regex = re.compile(exp)
 
 
-for post in posts:
-    match = regex.findall(post.post_text)
+for p in posts:
+    match = regex.findall(p.post_text)
     if match:
         print match, '\n' + 'TEXT::::::::::::::::'
-        print post.post_text
-        '''
-        if (len(matches) > 0):
-        post.weight_matches = list(matches)
-        results.write(str(post.printpost))
-'''
+        print p.post_id
+        print p.post_text
 
+        if (len(match) > 0):
+            p.weight_matches = list(match)
+            result = p.printpost()
+            results.write(result)
+
+# close file
+results.close()

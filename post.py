@@ -15,6 +15,6 @@ class post:
         self.post_id = i_d
         self.post_text = text
 
-    def printpost():
-        return postdelimiter + '\n' + post_author + '\n' + post_id + '\n' + weight_matches + '\n' + postdelimiter + '\n'
+    def printpost(self):
+        return self.postdelimiter + '\n' + self.post_author + '\n' + self.post_id + '\n' + str(self.weight_matches) + '\n' + self.postdelimiter + '\n'
 

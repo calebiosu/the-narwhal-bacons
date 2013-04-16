@@ -1,4 +1,3 @@
-
 '''
 Created on Apr 8, 2013
 @author: Alex Shilen
@@ -10,13 +9,6 @@ Created on Apr 8, 2013
 import praw
 import sys
 import post
-
-
-
-
-
-
-
 
 
 r = praw.Reddit(user_agent='obesity_detection_app')
