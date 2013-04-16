@@ -23,7 +23,7 @@ regex = re.compile(r"(([\b\w .]\w*[\b\w .]){0,4}\d{3}[a-zA-Z.]{0,3}([\b\w .]\w*[
 
 
 for post in posts:
-    match = re.findall(regex, post.post_text)
+    match = regex.findall(post.post_text)
     if match:
         print match, '\n' + 'TEXT::::::::::::::::'
         print post.post_text
