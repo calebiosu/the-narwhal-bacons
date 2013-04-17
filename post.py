@@ -10,6 +10,19 @@ class post(object):
         self.post_id = i_d
         self.post_text = text
         self.post_text = self.post_text.replace('\n', ' ')
+        self.post_text = self.post_text.replace('*', ' ')
+        self.post_text = self.post_text.replace(',', ' ')
+        self.post_text = self.post_text.replace('.', ' ')
+        self.post_text = self.post_text.replace('!', ' ')
+        self.post_text = self.post_text.replace('?', ' ')
+        self.post_text = self.post_text.replace('(', ' ')
+        self.post_text = self.post_text.replace(')', ' ')
+        self.post_text = self.post_text.replace('/', ' ')
+        self.post_text = self.post_text.replace('\\', ' ')
+        self.post_text = self.post_text.replace('$', ' ')
+        self.post_text = self.post_text.replace('_', ' ')
+        self.post_text = self.post_text.replace('"', ' ')
+        
         
         self.weight_matches = []
         self.height_matches = []
