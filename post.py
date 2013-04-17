@@ -1,12 +1,6 @@
 import match
 
-class post:
-
-    post_author = ''
-    post_id = ''
-    post_text = ''
-    weight_matches = []
-    height_matches = []
+class post(object):
 
     postdelimiter = '++++++'
 
@@ -15,6 +9,9 @@ class post:
         self.post_author = author
         self.post_id = i_d
         self.post_text = text
+        
+        self.weight_matches = []
+        self.height_matches = []
 
 
     def printpostto(self, output_file):
