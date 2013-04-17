@@ -36,7 +36,7 @@ for p in posts:
             new_match = match.match(elem[0])
             p.weight_matches.append(new_match)
 
-    post_hits.append(p)
+        post_hits.append(p)
 
 
 # Print posts to file 
