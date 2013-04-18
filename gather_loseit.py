@@ -36,7 +36,7 @@ def gathertofile(lim, filename):
             '\n' + submission.title.encode('utf-8') + 
             '\n' + str(submission.author).encode('utf-8') +
             '\n' + submission.short_link.encode('utf-8') + 
-            '\n' + submission.selftext.lower().encode('utf-8'))
+            '\n' + submission.selftext.encode('utf-8'))
 
 
     f.write('\n' + post_delimiter)
