@@ -8,7 +8,7 @@ class post(object):
 
         self.post_author = author
         self.post_id = i_d
-        self.post_text = re.sub('[*"!.?()/\&$]\n*', ' ', text.lower())
+        self.post_text = re.sub('[*!,:;.?()/\&$]\n*', ' ', text.lower())
         
         self.weight_matches = []
         self.height_matches = []
