@@ -29,7 +29,7 @@ distance = str(sys.argv[1])
 posts = gather_loseit.gathertolist(100)
 post_hits = []
 
-exp = r"(([\b\w .\"'()-]\w*[\b\w .'\"()-]){0," + distance + r"}\d{3}[a-zA-Z.]{0,3}([\w\b\" .'()-]\w*[\b\w\" .'()-]){0," + distance + "})"
+exp = r"(?=(([\b\w .\"'()-]\w*[\b\w .'\"()-]){" + distance + r"}\d{3}[a-zA-Z.]{0,3}([\w\b\" .'()-]\w*[\b\w\" .'()-]){" + distance + "}))"
 regex = re.compile(exp)
 
 
@@ -46,7 +46,6 @@ for p in posts:
         # Take first group of each tuple match, create new match object
         # and add to post's list of matches
         for elem in matches:
-            
             new_match = match.match(insertspace(elem[0]))
             p.weight_matches.append(new_match)
 
