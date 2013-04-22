@@ -20,7 +20,7 @@ def gathertolist(lim):
     for submission in loseit_subreddit.get_new(limit = lim):
         newpost = post.post(str(submission.author),
             submission.short_link,
-            submission.selftext.lower())
+            submission.selftext + submission.title)
         post_list.append(newpost)
 
 
