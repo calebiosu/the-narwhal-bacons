@@ -8,38 +8,39 @@ class post(object):
 
         self.post_author = author
         self.post_hyperlink = hyperlink
-        self.post_text = re.sub('[\[\]}{*!,:;?()/\&$\n*\+\=_\%]', ' ', text.lower())
+        self.post_text = re.sub('[\[\]}{*!:;?()/\&$\n*\+\=_\%]', ' ', text.lower())
+        self.post_text = re.sub(',', '.', self.post_text)
         
-        self.removequotes(self.post_text)
-        self.insertspaces(self.post_text)
+        self.removequotes()
+        self.insertspaces()
         
         self.weight_matches = []
         self.height_matches = []
 
 
         
-    def removequotes(self, string):
+    def removequotes(self):
     
-        height_regex = re.compile("\d\'\d\"")
-        for word in string:
-            if height_regex.findall(word) == 0:
-                if word[0] == '\"':
-                    print string
-                    word[0] = ' '
-                if word[len(word)-1] == '\"':
-                    print string
-                    word[len(word)-1] = ' '
-                    
+        newpost = ''
+        for word in self.post_text.split(' '):
+            
+            if not re.search("\d\"", word):
+                word = word.replace('\"', '')             
+                  
+                  
+            newpost += word + ' '
+        self.post_text = newpost
     
 
     # Insert space between 3 digits and adjacent letters
-    def insertspaces(self, string):
-        components = re.findall( r'(.*\d{1,3})([a-zA-Z.]{2,4}.*)', string)
+    def insertspaces(self):
+        components = re.findall( r'(.*\d{1,3})([a-zA-Z.]{2,4}.*)', self.post_text)
 
         if components:
-            return self.insertspaces(str(components[0][0] + ' ' + components[0][1]))
+            self.post_text = str((components[0][0] + ' ' + components[0][1]))
+            return self.insertspaces()
         else:
-            return string
+            return self.post_text
 
 
     def printpostto(self, output_file):
