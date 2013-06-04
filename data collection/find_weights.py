@@ -20,7 +20,7 @@ def insertspace(string):
         return string
 
 # Input check
-if not len(sys.argv) == 3:
+if not len(sys.argv) == 2:
     print 'Usage: <exec> <post_limit>'
     sys.exit(1)
 
@@ -28,16 +28,18 @@ if not len(sys.argv) == 3:
 posts = gather_loseit.gathertolist(int(sys.argv[1]))
 post_hits = []
 
+
 weight_exp = r"\d{3}"
-height_exp = r"\d\'\d\""
+height_exp = r"\d\'\d\"|\d{2,3} [in|cm|in.|cm.|inches]"
 weight_regex = re.compile(weight_exp)
-height_regex = re,compile(height_regex)
+height_regex = re.compile(height_exp)
 
 # Search each post for weight pattern and height pattern.
 # Add to list if found.
 for p in posts:
 
 	# Search post string
+    insertspace(p.post_text)
     weight_matches = weight_regex.findall(p.post_text)
     height_matches = height_regex.findall(p.post_text)
 
