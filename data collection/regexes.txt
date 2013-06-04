@@ -1,0 +1,6 @@
+
+Weight with parameterized word span:
+r"(( [\b\w .\"\'()-][\d\w\'\"]*[\b\w .\'\"()-]){" + distance + r"}\d{3}[a-zA-Z. ]{1,3}([\w\b\" .\'()-][\d\w\'\"]*[\b\w\" .\'()-]){" + distance + "})"
+
+
+
