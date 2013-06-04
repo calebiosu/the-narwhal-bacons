@@ -4,12 +4,11 @@ import re
 class post(object):
 
 
-    def __init__(self, author, hyperlink, i_d, text):
+    def __init__(self, author, hyperlink, text):
 
         self.post_author = author
         self.post_hyperlink = hyperlink
-        self.post_id = i_d
-        self.post_text = re.sub('[\[\]}{*!,:;?()/\&$\n*\+\=_\%]', ' ', text.lower().encode('utf8'))
+        self.post_text = re.sub('[\[\]}{*!,:;?()/\&$\n*\+\=_\%]', ' ', text.lower())
         
         self.weight_matches = []
         self.height_matches = []
@@ -26,9 +25,10 @@ class post(object):
     def printforCRF(self, output_file):
         
         for word in self.post_text.split(' '):
-            output_file.write(self.post_id , ','
-                    + self.post_hyperlink + ','
-                    + word + ',\n')
+            if word != ' ' and word != '\n' and len(word) > 0:
+                output_file.write(str(self.post_id) + ','
+                        + self.post_hyperlink + ','
+                        + word + ',\n')
         
 
 

@@ -11,7 +11,7 @@ import sys
 import post
 
 
-r = praw.Reddit(user_agent='obesity_detection_app')
+r = praw.Reddit(user_agent='Columbia University Health Center Dep of Bioinformatics')
 loseit_subreddit = r.get_subreddit('loseit')
 
 def gathertolist(lim):
@@ -19,11 +19,12 @@ def gathertolist(lim):
     post_list = []
     
     for submission in loseit_subreddit.get_new(limit = lim):
-        newpost = post.post(str(submission.author),
-            submission.short_link,
-            submission.selftext + submission.title)
+        newpost = post.post(str(submission.author).encode('utf-8'),
+            submission.short_link.encode('utf-8'),
+            submission.selftext.encode('utf-8') + submission.title.encode('utf-8'))
         post_list.append(newpost)
-    
+
+
     return post_list
  
 

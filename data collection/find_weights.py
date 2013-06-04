@@ -36,6 +36,7 @@ height_regex = re.compile(height_exp)
 
 # Search each post for weight pattern and height pattern.
 # Add to list if found.
+index = 0
 for p in posts:
 
 	# Search post string
@@ -45,7 +46,9 @@ for p in posts:
 
 
     if len(weight_matches) > 0 and len(height_matches) > 0:
+        p.post_id = index
         post_hits.append(p)
+        index += 1
     
 
 
