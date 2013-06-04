@@ -27,7 +27,6 @@ class post(object):
             if not re.search("\d\"", word):
                 word = word.replace('\"', '')             
                   
-                  
             newpost += word + ' '
         self.post_text = newpost
     
@@ -51,13 +50,22 @@ class post(object):
             output_file.write(post_header)
             output_file.write(m.match_text + ',' + '\n')
     
+    
+    @staticmethod
+    def tag(string):
+        if re.search('[a-zA-z]', string):
+            return str(0)
+        return ' '
+        
+    
     def printforCRF(self, output_file):
         
         for word in self.post_text.split(' '):
-            if word != ' ' and word != '\n' and len(word) > 0:
+            if word != ' ' and word != '\n' and word != '.' and len(word) > 0:
                 output_file.write(str(self.post_id) + ','
                         + self.post_hyperlink + ','
-                        + word + ',\n')
+                        + word + ',' 
+                        + post.tag(word) + ',\n')
         
 
 
