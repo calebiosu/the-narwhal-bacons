@@ -5,19 +5,10 @@ import gather_loseit
 import match
 
 
-''' Script finds weights in a list of posts with up to N words 
-    on either side, turns them into match objects, adds the 
-    match objects to a list within each post object and prints 
-    each post to a file. '''
+''' Script finds posts that contain both potential weight and potential
+height matches found by regex. It then adds them to a csv file. '''
 
-# Insert space between 3 digits and adjacent letters
-def insertspace(string):
-    components = re.findall( r'(.*\d{1,3})([a-zA-Z.]{2,4}.*)', string)
 
-    if components:
-        return insertspace(str(components[0][0] + ' ' + components[0][1]))
-    else:
-        return string
 
 # Input check
 if not len(sys.argv) == 2:
@@ -40,7 +31,6 @@ index = 0
 for p in posts:
 
 	# Search post string
-    insertspace(p.post_text)
     weight_matches = weight_regex.findall(p.post_text)
     height_matches = height_regex.findall(p.post_text)
 
