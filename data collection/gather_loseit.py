@@ -21,7 +21,7 @@ def gathertolist(lim):
     for submission in loseit_subreddit.get_new(limit = lim):
         newpost = post.post(str(submission.author).encode('utf-8'),
             submission.short_link.encode('utf-8'),
-            submission.selftext.encode('utf-8') + submission.title.encode('utf-8'))
+            submission.title.encode('utf-8') + ' ' + submission.selftext.encode('utf-8'))
         post_list.append(newpost)
 
 

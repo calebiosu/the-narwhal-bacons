@@ -11,8 +11,10 @@ class post(object):
         self.post_text = re.sub('[\[\]}{*!:;?()/\&$\n*\+\=_\%]', ' ', text.lower())
         self.post_text = re.sub(',', '.', self.post_text)
         
+        self.seperatedashes()
         self.removequotes()
         self.insertspaces()
+        self.tokenizeperiods()
         
         self.weight_matches = []
         self.height_matches = []
@@ -33,15 +35,43 @@ class post(object):
 
     # Insert space between 3 digits and adjacent letters
     def insertspaces(self):
+        
         components = re.findall( r'(.*\d{1,3})([a-zA-Z.]{2,4}.*)', self.post_text)
-
         if components:
             self.post_text = str((components[0][0] + ' ' + components[0][1]))
             return self.insertspaces()
         else:
             return self.post_text
 
+    def tokenizeperiods(self):
+        
+        newpost = ''
+        for word in self.post_text.split(' '):
+            
+            if re.search('\w\.', word):
+                word = word + ' .'
+                
+            if re.search('\.\w', word):
+                word = '. ' + word
+                
+            newpost += word + ' '
+        
+        self.post_text = newpost
+        
 
+    def seperatedashes(self):
+        
+        newpost = ''
+        for word in self.post_text.split(' '):
+            
+            if re.search('-', word):
+                word = word.replace('-', ' - ')
+                
+            newpost += word + ' '
+        self.post_text = newpost
+        
+        
+        
     def printpostto(self, output_file):
 
         post_header = self.post_id + ',' + self.post_author + ','
@@ -53,9 +83,10 @@ class post(object):
     
     @staticmethod
     def tag(string):
-        if re.search('[a-zA-z]', string):
+        
+        if not re.search('\d', string):
             return str(0)
-        return ' '
+        return '1'
         
     
     def printforCRF(self, output_file):

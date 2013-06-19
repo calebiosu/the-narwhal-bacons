@@ -17,38 +17,41 @@ if not len(sys.argv) == 2:
 
 
 posts = gather_loseit.gathertolist(int(sys.argv[1]))
-post_hits = []
-
+weight_hits = []
+height_hits = []
 
 weight_exp = r"\d{3}"
-height_exp = r"\d\'\d\"|\d{2,3} [in|cm|in.|cm.|inches]"
+height_exp = r"\d\'\d\"|\d{2,3}.in|cm|in\.|cm\.|inches"
 weight_regex = re.compile(weight_exp)
 height_regex = re.compile(height_exp)
 
 # Search each post for weight pattern and height pattern.
 # Add to list if found.
-index = 0
-for p in posts:
+
+for i, p in enumerate(posts):
 
 	# Search post string
     weight_matches = weight_regex.findall(p.post_text)
     height_matches = height_regex.findall(p.post_text)
 
 
-    if len(weight_matches) > 0 and len(height_matches) > 0:
-        p.post_id = index
-        post_hits.append(p)
-        index += 1
-    
+    if len(weight_matches) > 0:
+        p.post_id = i
+        weight_hits.append(p)
+        
+    if len(height_matches) > 0:
+        height_hits.append(p)
 
 
-
-# Print posts to csv file 
-results = open('post_matches.csv', 'w')
-
-for p in post_hits:
+# Print posts to csv files 
+results = open('weight_matches.csv', 'w')
+for p in weight_hits:
     p.printforCRF(results)
 
+results = open('height_matches.csv', 'w')
+for p in height_hits:
+    p.printforCRF(results)
+    
 results.close()
 
 
