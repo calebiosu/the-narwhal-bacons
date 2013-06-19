@@ -47,10 +47,10 @@ class post(object):
         newpost = ''
         for word in self.post_text.split(' '):
             
-            if re.search('[\"\w]\.', word):
+            if re.search('[\"a-zA-z]\.', word):
                 word = word.replace('.', ' .')
                 
-            if re.search('\.\w', word):
+            if re.search('\.[a-zA-z]', word):
                 word = word.replace('.', '. ')
                 
             newpost += word + ' '
