@@ -8,8 +8,7 @@ class post(object):
 
         self.post_author = author
         self.post_hyperlink = hyperlink
-        self.post_text = re.sub('[\[\]}{*!:;?()/\&$\n*\+\=_\%]', ' ', text.lower())
-        self.post_text = re.sub(',', '.', self.post_text)
+        self.post_text = re.sub('[\[\]}{*!:;?()/\&$\n*\+\=_\%,]', ' ', text.lower())
         
         self.seperatedashes()
         self.removequotes()
@@ -48,11 +47,11 @@ class post(object):
         newpost = ''
         for word in self.post_text.split(' '):
             
-            if re.search('\w\.', word):
-                word = word + ' .'
+            if re.search('[\"\w]\.', word):
+                word = word.replace('.', ' .')
                 
             if re.search('\.\w', word):
-                word = '. ' + word
+                word = word.replace('.', '. ')
                 
             newpost += word + ' '
         
@@ -84,15 +83,15 @@ class post(object):
     @staticmethod
     def tag(string):
         
-        if not re.search('\d', string):
+        if not re.search('\d{2,3}', string):
             return str(0)
-        return '1'
+        return ''
         
     
     def printforCRF(self, output_file):
         
         for word in self.post_text.split(' '):
-            if word != ' ' and word != '\n' and word != '.' and len(word) > 0:
+            if word != ' ' and word != '\n' and len(word) > 0:
                 output_file.write(str(self.post_id) + ','
                         + self.post_hyperlink + ','
                         + word + ',' 
