@@ -83,7 +83,7 @@ class post(object):
     @staticmethod
     def tag(string):
         
-        if not re.search('\d{2,3}', string):
+        if not re.search('\d{3}', string) and not re.search(r"\d\'\d\"|\d{2,3}.in|cm|in\.|cm\.|inches", string):
             return str(0)
         return ''
         
