@@ -60,12 +60,38 @@ for post in post_set:
         feature_sets.append( (feature_extractor(post, i), line[3]) ) 
         
 random.shuffle(feature_sets)
+
+# training
 size = int(len(feature_sets) * 0.1)
 train_set, test_set = feature_sets[size:], feature_sets[:size]
-
 classifier = nltk.NaiveBayesClassifier.train(train_set)
+
+# testing
 print nltk.classify.accuracy(classifier, test_set)
+print classifier.show_most_informative_features(5)
 
 
+errors = []
+positives = []
+for (word, tag) in test_set:
+    
+    guess = classifier.classify(word)
+    if guess != tag:
+        
+        line = "WORD: %-15s TAG: %-10s GUESS: %s" % (word["SELF"], tag, guess)
+        errors.append(line)
+    
+    if guess == tag and guess != '0':
+        line = "WORD: %-15s TAG: %-10s" % (word["SELF"], tag)
+        positives.append(line)
+
+print "\nERRORS:"
+for line in errors:
+    print line
+    
+print "\nPOSITIVES:"
+for line in positives:
+    print line
+       
 
     
