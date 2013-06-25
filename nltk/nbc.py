@@ -4,8 +4,8 @@ import random
 
 def feature_extractor(post, i):
     
-    features = {}
-    features["SELF"] = post[i][2]
+    features = {"SELF": post[i][2]}
+   
     
     for n in range(1,6):
         if i-n > len(post):
