@@ -1,6 +1,7 @@
 import nltk
 import csv
 import random
+import conf_matrix
 
 def feature_extractor(post, i):
     
@@ -62,12 +63,12 @@ for post in post_set:
 random.shuffle(feature_sets)
 
 # training
-size = int(len(feature_sets) * 0.1)
+size = int(len(feature_sets) * 0.5)
 train_set, test_set = feature_sets[size:], feature_sets[:size]
 classifier = nltk.NaiveBayesClassifier.train(train_set)
 
 # testing
-print nltk.classify.accuracy(classifier, test_set)
+print "Accuracy: ", nltk.classify.accuracy(classifier, test_set)
 print classifier.show_most_informative_features(5)
 
 
@@ -93,5 +94,8 @@ print "\nPOSITIVES:"
 for line in positives:
     print line
        
-
-    
+train_set_tags = [tag for (word, tag) in train_set]
+test_set_tags = [tag for (word, tag) in test_set]
+      
+print "\t\t-----------Confusion Matrix-----------"
+print conf_matrix.ConfusionMatrix(train_set_tags, test_set_tags)
